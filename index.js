@@ -444,4 +444,15 @@ app.listen(port, () => {
   console.log(`Claude-to-OpenAI proxy server running on port ${port}`);
 });
 
+// STOP
+// Handle graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM signal received: Closing HTTP server');
+  // Close the server and allow existing connections to finish
+  server.close(() => {
+    console.log('HTTP server closed. Exiting process.');
+    process.exit(0);
+  });
+});
+
 export default app;
