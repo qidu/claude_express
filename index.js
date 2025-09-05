@@ -18,7 +18,7 @@ app.use(express.json());
 const config = {
   HAIKU_MODEL_NAME: process.env.HAIKU_MODEL_NAME || 'gpt-oss-120b',
   HAIKU_BASE_URL: process.env.HAIKU_BASE_URL || 'https://openai.qiniu.com/v1',
-  HAIKU_API_KEY: process.env.HAIKU_API_KEY || 'sk-d8d563c410cd87a6c29dc81bf983aa935a16fe27166a8eb0444c1324ec15b854'
+  HAIKU_API_KEY: process.env.HAIKU_API_KEY || 'sk-d8d563c410cd87a6c29dc81bf983aa935a16fe27166a8eb0444c1324ec******'
 };
 
 // --- 辅助函数 ---
