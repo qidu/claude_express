@@ -14,7 +14,7 @@ export ANTHROPIC_BASE_URL=http://localhost:8787
 export API_TIMEOUT_MS=610000
 export ANTHROPIC_MODEL=haiku
 export ANTHROPIC_SMALL_FAST_MODEL=haiku
-#export ANTHROPIC_AUTH_TOKEN=sk-d8d563c410cd87a6c29dc81bf983aa935a16fe27166a8eb0444c1324ec15b854
+#export ANTHROPIC_AUTH_TOKEN=sk-d8d563c410cd87a6c29dc81bf983aa935a16fe27166a8eb0444c1324ec******
 ```
 
 # Run Claude Code
@@ -37,4 +37,12 @@ curl -X POST http://localhost:8787/v1/messages \
     ],
     "max_tokens": 100
   }'
+```
+
+# Create Image
+```
+sudo docker build -t claude_express .
+```
+```
+sudo docker run -it --rm -p 8787:8787 claude_express
 ```
