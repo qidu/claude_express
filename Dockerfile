@@ -8,17 +8,18 @@ WORKDIR /usr/src/claude_proxy
 #ENV HAIKU_MODEL_NAME=gpt-oss-20b
 #ENV HAIKU_API_KEY=sk-123456
 
-RUN apt-get update && \
-    apt-get install -y ca-certificates --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && \
+#    apt-get install -y ca-certificates --no-install-recommends && \
+#    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && \
-    apt-get install -y git --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && \
+#    apt-get install -y git --no-install-recommends && \
+#    rm -rf /var/lib/apt/lists/*
 
 
 
 # 克隆Git仓库（使用HTTP方式）
+RUN apk add --no-cache git ca-certificates
 #RUN apk add --no-cache gcompat
 
 #RUN apk add --no-cache git && \
