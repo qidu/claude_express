@@ -20,6 +20,9 @@ const config = {
   HAIKU_BASE_URL: process.env.HAIKU_BASE_URL || 'https://openai.qiniu.com/v1',
   HAIKU_API_KEY: process.env.HAIKU_API_KEY || 'sk-d8d563c410cd87a6c29dc81bf983aa935a16fe27166a8eb0444c1324ec******'
 };
+// console.log(config.HAIKU_MODEL_NAME)
+// console.log(config.HAIKU_BASE_URL)
+// console.log(config.HAIKU_API_KEY)
 
 // --- 辅助函数 ---
 
@@ -349,7 +352,6 @@ app.post('*', async (req, res) => {
     const url = req.originalUrl;
     
     // 所有有效请求必须以 /v1/messages 结尾
-    console.log(url)
     if (!url.endsWith('/v1/messages') && !url.endsWith('/v1/messages?beta=true')) {
       return res.status(404).json({ error: 'Not Found. URL must end with /v1/messages' });
     }

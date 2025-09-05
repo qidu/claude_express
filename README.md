@@ -44,5 +44,6 @@ curl -X POST http://localhost:8787/v1/messages \
 sudo docker build -t claude_express .
 ```
 ```
-sudo docker run -it --rm -p 8787:8787 claude_express
+sudo docker run -e PORT=8787 -it --rm -p 8787:8787 claude_express
+#sudo docker run -e PORT=8787 -e HAIKU_API_KEY=sk-d8d563****** -it --rm -p 8787:8787 claude_express
 ```

@@ -2,8 +2,9 @@ FROM node:24-alpine
 #FROM node:lts-bookworm-slim
 
 # 设置工作目录
-WORKDIR /usr/src/claude_proxy
+WORKDIR /usr/src/claude_express
 
+ENV PORT=8787
 #ENV HAIKU_BASE_URL=https://openai.qiniu.com/v1
 #ENV HAIKU_MODEL_NAME=gpt-oss-20b
 #ENV HAIKU_API_KEY=sk-123456
@@ -46,7 +47,7 @@ RUN npm --no-color install express cors node-fetch \
 #    npm test
 
 # 暴露端口（如果需要）
-EXPOSE 8787
+EXPOSE $PORT
 
 # 设置启动命令（如果需要容器持续运行）
 CMD ["node", "index.js"]
