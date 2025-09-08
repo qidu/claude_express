@@ -350,13 +350,21 @@ async function handleStreamResponse(openaiResponse, model, res) {
 app.post('*', async (req, res) => {
   try {
     const url = req.originalUrl;
+
+    // console.log(url)
+    for (const key in req.headers) {
+      if (req.headers.hasOwnProperty(key)) {
+      //  console.log(`${key}: ${req.headers[key]}`);
+      }
+    }
     
     // 所有有效请求必须以 /v1/messages 结尾
     if (!url.endsWith('/v1/messages') && !url.endsWith('/v1/messages?beta=true')) {
       return res.status(404).json({ error: 'Not Found. URL must end with /v1/messages' });
     }
 
-    const apiKey = req.headers['x-api-key'];
+    const authtoken = req.headers['authorization'] || req.headers['Authorization'];
+    const apiKey = req.headers['x-api-key'] || (authtoken && authtoken.substring(authtoken.lastIndexOf(' ') + 1));
     
     const claudeRequest = req.body;
 
@@ -377,6 +385,10 @@ app.post('*', async (req, res) => {
       if (dynamicConfig) {
         targetBaseUrl = dynamicConfig.baseUrl;
         targetModelName = dynamicConfig.modelName;
+        targetApiKey = apiKey || '';
+      } else if (claudeRequest.model) {
+        targetBaseUrl = config.HAIKU_BASE_URL;
+        targetModelName = claudeRequest.model;
         targetApiKey = apiKey || '';
       } else {
         return res.status(400).json({ error: 'Could not determine target configuration from URL path' });
