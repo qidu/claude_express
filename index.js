@@ -20,9 +20,9 @@ const config = {
   HAIKU_BASE_URL: process.env.HAIKU_BASE_URL || 'https://openai.qiniu.com/v1',
   HAIKU_API_KEY: process.env.HAIKU_API_KEY || 'sk-d8d563c410cd87a6c29dc81bf983aa935a16fe27166a8eb0444c1324ec******'
 };
-// console.log(config.HAIKU_MODEL_NAME)
-// console.log(config.HAIKU_BASE_URL)
-// console.log(config.HAIKU_API_KEY)
+// console.log(config.HAIKU_MODEL_NAME);
+// console.log(config.HAIKU_BASE_URL);
+// console.log(config.HAIKU_API_KEY);
 
 // --- 辅助函数 ---
 
@@ -152,7 +152,7 @@ function convertClaudeToOpenAIRequest(claudeRequest, modelName) {
   const openaiRequest = {
     model: modelName,
     messages: openaiMessages,
-    max_tokens: claudeRequest.max_tokens,
+    max_tokens: modelName.indexOf('deepseek-') != -1? 8192 : claudeRequest.max_tokens,
     temperature: claudeRequest.temperature,
     top_p: claudeRequest.top_p,
     stream: claudeRequest.stream,
@@ -351,10 +351,10 @@ app.post('*', async (req, res) => {
   try {
     const url = req.originalUrl;
 
-    // console.log(url)
+    // console.log(url);
     for (const key in req.headers) {
       if (req.headers.hasOwnProperty(key)) {
-      //  console.log(`${key}: ${req.headers[key]}`);
+        // console.log(`${key}: ${req.headers[key]}`);
       }
     }
     
@@ -374,6 +374,7 @@ app.post('*', async (req, res) => {
     let targetBaseUrl;
 
     // 检查是否为 "haiku" 特定路由
+    // console.log(claudeRequest.model);
     const isHaiku = claudeRequest.model.toLowerCase().includes("haiku");
     if (isHaiku) {
       targetModelName = config.HAIKU_MODEL_NAME;
