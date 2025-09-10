@@ -12,7 +12,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key', 'Anthropic-Version']
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '20mb'}));
 
 // 环境变量配置 .env
 const config = {
@@ -152,7 +152,8 @@ function convertClaudeToOpenAIRequest(claudeRequest, modelName) {
   const openaiRequest = {
     model: modelName,
     messages: openaiMessages,
-    max_tokens: modelName.indexOf('deepseek-') != -1? 8192 : claudeRequest.max_tokens,
+    max_tokens: claudeRequest.max_tokens,
+    // max_tokens: modelName.indexOf('deepseek-') != -1? 8192 : claudeRequest.max_tokens,
     temperature: claudeRequest.temperature,
     top_p: claudeRequest.top_p,
     stream: claudeRequest.stream,
